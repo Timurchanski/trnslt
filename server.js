@@ -191,14 +191,17 @@ app.listen(PORT, () => {
 });
 
 async function transcribeWithDeepgram(audioBuffer, mimeType) {
-  const response = await fetch("https://api.deepgram.com/v1/listen?model=nova-3&smart_format=true", {
-    method: "POST",
-    headers: {
-      Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
-      "Content-Type": mimeType || "audio/webm"
-    },
-    body: audioBuffer
-  });
+  const response = await fetch(
+    "https://api.deepgram.com/v1/listen?model=nova-2&smart_format=true&encoding=opus&container=webm",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+        "Content-Type": "audio/webm"
+      },
+      body: audioBuffer
+    }
+  );
 
   if (!response.ok) {
     const details = await response.text();
